@@ -216,3 +216,40 @@ if (form && note) {
   }
 })();
 /* ===== END WEDDING ENVELOPE ANIMATION ===== */
+
+
+/* ===== FALLING HEARTS ANIMATION ===== */
+(function () {
+  function createHeartRain() {
+    const container = document.querySelector(".heart-rain");
+
+    if (!container || container.dataset.ready === "true") return;
+
+    container.dataset.ready = "true";
+
+    const hearts = ["♥", "❤", "💕", "♡"];
+    const heartCount = 30;
+
+    for (let i = 0; i < heartCount; i++) {
+      const heart = document.createElement("span");
+
+      heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.fontSize = (12 + Math.random() * 17) + "px";
+      heart.style.opacity = (0.35 + Math.random() * 0.5).toFixed(2);
+      heart.style.animationDuration = (7 + Math.random() * 9) + "s";
+      heart.style.animationDelay = (-Math.random() * 15) + "s";
+
+      container.appendChild(heart);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", createHeartRain);
+  } else {
+    createHeartRain();
+  }
+})();
+/* ===== END FALLING HEARTS ===== */
