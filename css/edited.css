@@ -1,52 +1,106 @@
 
-/* Wedding theme: Pastel Pink + Light Blue + Gold */
+/* PINK WEDDING THEME OVERRIDES */
 
 :root {
-  --wedding-pink: #f6c6d2;
-  --wedding-pink-light: #fff0f4;
-  --wedding-blue: #c9e2f7;
-  --wedding-blue-light: #edf6ff;
-  --wedding-white: #fffdfb;
-  --wedding-gold: #c6a15b;
-  --wedding-text: #51434a;
+  --paper: #fff8fa;
+  --ink: #68434f;
+  --ink-soft: #987783;
+  --line: rgba(183, 93, 124, 0.3);
+  --dark: #c46f8d;
+  --rose-light: #fff0f4;
+  --rose-pale: #fce4eb;
+  --rose: #e9b2c3;
+  --rose-deep: #b75d7c;
+  --gold: #c6a15b;
 }
 
-/* Main colours */
 body {
-  background-color: var(--wedding-white);
-  color: var(--wedding-text);
+  background-color: var(--paper);
+  color: var(--ink);
 }
 
-/* Headings */
-h1, h2, h3 {
-  color: #b76e85;
+.hero {
+  background: radial-gradient(ellipse at top, #fff0f4, transparent 65%), var(--paper);
 }
 
-/* Links and buttons */
+.hero-names h1,
+.script-title,
+.story-claim,
+.event-time,
+.rsvp-title,
+.gallery-credit,
+.footer-names,
+.quote p {
+  color: var(--rose-deep);
+}
+
+.monogram {
+  color: var(--rose-deep);
+  border-color: var(--rose);
+}
+
+.countdown,
+.rsvp {
+  background-color: var(--rose-light);
+  border-color: var(--line);
+}
+
+.cd-num {
+  color: var(--rose-deep);
+}
+
+.event {
+  background: rgba(255, 240, 244, 0.7);
+  border-color: var(--line);
+}
+
+.btn-location,
+.btn-confirm {
+  border-color: var(--rose-deep);
+  background-color: var(--rose-deep);
+  color: white;
+}
+
+.btn-location:hover,
+.btn-confirm:hover {
+  background-color: white;
+  color: var(--rose-deep);
+}
+
+.divider {
+  background-color: var(--rose);
+}
+
+.chip span {
+  border-color: var(--rose);
+}
+
+.chip input:checked + span {
+  background-color: var(--rose-deep);
+  border-color: var(--rose-deep);
+  color: white;
+}
+
+.field input,
+.field textarea {
+  border-bottom-color: var(--rose);
+  color: var(--ink);
+}
+
+.quote {
+  background-color: var(--rose-pale);
+}
+
+.footer {
+  background-color: var(--paper);
+  border-top-color: var(--line);
+}
+
 a {
-  transition: all 0.3s ease;
+  color: var(--rose-deep);
 }
 
-a:hover {
-  color: var(--wedding-gold);
-}
-
-/* Soft pink and blue section backgrounds */
-section:nth-of-type(even) {
-  background-color: var(--wedding-pink-light);
-}
-
-section:nth-of-type(odd) {
-  background-color: var(--wedding-blue-light);
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Mobile-friendly layout */
-img {
-  max-width: 100%;
-  height: auto;
+::selection {
+  background-color: var(--rose);
+  color: white;
 }
