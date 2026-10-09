@@ -174,3 +174,33 @@ if (form && note) {
     window.location.href = mailto;
   });
 }
+
+
+
+/* ===== WEDDING ENVELOPE OPEN ANIMATION ===== */
+document.addEventListener("DOMContentLoaded", function () {
+  const screen = document.getElementById("envelope-screen");
+  const openButton = document.getElementById("open-invitation");
+
+  if (!screen || !openButton) return;
+
+  document.body.style.overflow = "hidden";
+
+  openButton.addEventListener("click", function () {
+    if (screen.classList.contains("is-opening")) return;
+
+    screen.classList.add("is-opening");
+    openButton.disabled = true;
+    openButton.textContent = "With love ♥";
+
+    setTimeout(function () {
+      screen.classList.add("is-open");
+      document.body.style.overflow = "";
+    }, 1100);
+
+    setTimeout(function () {
+      screen.remove();
+    }, 2100);
+  });
+});
+/* ===== END WEDDING ENVELOPE ANIMATION ===== */
