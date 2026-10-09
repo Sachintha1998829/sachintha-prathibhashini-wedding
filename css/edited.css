@@ -392,3 +392,94 @@ a {
 }
 
 /* ===== END HEART RAIN & ROSES ===== */
+
+
+```css
+/* Elegant invitation card — bring it above the envelope flap */
+.envelope-letter {
+  z-index: 6 !important;
+  height: 165px;
+  box-sizing: border-box;
+  padding: 17px 8px;
+  overflow: hidden;
+
+  background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+  border: 1px solid #d8b36b;
+  border-radius: 5px;
+  box-shadow:
+    0 8px 22px rgba(116, 52, 76, 0.18),
+    inset 0 0 0 4px #fff,
+    inset 0 0 0 5px #f0dce3;
+
+  color: #805064;
+  text-align: center;
+  transition: transform 1s ease 0.35s;
+}
+
+/* Names */
+.envelope-letter p {
+  margin: 4px 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 5vw, 23px);
+  font-style: italic;
+  line-height: 1.15;
+  color: #a64f70;
+  letter-spacing: 0.3px;
+}
+
+/* Heart above the names */
+.envelope-letter .letter-heart {
+  display: block;
+  margin-bottom: 5px;
+  color: #c45d80;
+  font-size: 17px;
+}
+
+/* Gold ampersand */
+.envelope-letter .letter-amp {
+  display: block;
+  margin: 2px 0;
+  color: #c3a05e;
+  font-size: 18px;
+}
+
+/* Wedding date */
+.envelope-letter small {
+  display: block;
+  margin-top: 8px;
+  color: #987783;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* Flap stays behind the rising card */
+.envelope-screen.is-opening .envelope-flap {
+  z-index: 4;
+  transform: rotateX(180deg);
+}
+
+/* Raise the card above the envelope */
+.envelope-screen.is-opening .envelope-letter {
+  z-index: 6 !important;
+  transform: translateY(-125px);
+}
+
+/* Envelope front and seal stay below the card while opening */
+.envelope-screen.is-opening .envelope-front {
+  z-index: 3;
+}
+
+.envelope-screen.is-opening .envelope-seal {
+  z-index: 5;
+  opacity: 0;
+}
+
+/* Smooth, neat look on small phones */
+@media (max-width: 380px) {
+  .envelope-letter p {
+    font-size: 19px;
+  }
+}
+```
