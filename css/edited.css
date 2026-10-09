@@ -307,3 +307,88 @@ a {
   }
 }
 /* ===== END WEDDING ENVELOPE INTRO ===== */
+
+
+/* ===== ROMANTIC HEART RAIN & RED ROSES ===== */
+
+.envelope-screen {
+  isolation: isolate;
+}
+
+.envelope-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Falling hearts layer */
+.heart-rain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.heart-rain span {
+  position: absolute;
+  top: -50px;
+  display: block;
+  color: #e63959;
+  line-height: 1;
+  text-shadow: 0 3px 10px rgba(183, 40, 72, 0.15);
+  animation: romantic-heart-fall linear infinite;
+  will-change: transform;
+}
+
+@keyframes romantic-heart-fall {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(22px, 50vh, 0) rotate(180deg);
+  }
+
+  100% {
+    transform: translate3d(-15px, 110vh, 0) rotate(360deg);
+  }
+}
+
+/* Red roses along the bottom */
+.envelope-screen::after {
+  content: "🌹  🌹  🌹  🌹  🌹  🌹  🌹  🌹  🌹";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 2px 2px;
+  text-align: center;
+  white-space: nowrap;
+  font-size: clamp(20px, 4.5vw, 38px);
+  line-height: 1.4;
+  pointer-events: none;
+  filter: drop-shadow(0 -3px 8px rgba(160, 30, 60, 0.12));
+}
+
+/* Keep the invitation above the falling hearts */
+.envelope-content {
+  z-index: 2;
+}
+
+/* Respect reduced-motion accessibility settings */
+@media (prefers-reduced-motion: reduce) {
+  .heart-rain span {
+    animation: none;
+    opacity: 0.35;
+  }
+
+  .envelope-flap,
+  .envelope-letter,
+  .envelope-screen {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* ===== END HEART RAIN & ROSES ===== */
