@@ -1,17 +1,23 @@
-/* ═══════════════════════════════════════════════════════════════
-   WEDDING INVITE, script
-   Countdown, scroll animations, gallery, RSVP.
-   ═══════════════════════════════════════════════════════════════ */
 
-/* CUSTOMIZE: date and time of the ceremony (used by the countdown).
-   "+01:00" is British Summer Time, adjust for your own timezone. */
-const WEDDING_DATE = new Date("2028-06-17T16:00:00+01:00");
+/* ==========================================
+   SACHINTHA & PRATHIBHASHINI
+   Wedding website JavaScript
+   ========================================== */
 
-/* CUSTOMIZE: the email address RSVPs are sent to, when the form uses
-   the "mailto" mode (the default). */
-const COUPLE_EMAIL = "emma.james@example.com";
+// Wedding date: 20 January 2027, Sri Lanka time
+// Countdown targets the Poruwa ceremony at 10:10 AM.
+const WEDDING_DATE = new Date("2027-01-20T10:10:00+05:30");
 
-/* ── Countdown ────────────────────────────────────────────────── */
+// IMPORTANT:
+// Replace this with your real email address
+// before using the RSVP form.
+const COUPLE_EMAIL = "YOUR_EMAIL_HERE";
+
+// ------------------------------------------
+// Countdown
+// ------------------------------------------
+
+const countdown = document.getElementById("countdown");
 
 const cd = {
   days: document.getElementById("cd-days"),
@@ -21,101 +27,150 @@ const cd = {
 };
 
 function updateCountdown() {
-  const diff = WEDDING_DATE - new Date();
+  if (!countdown) return;
+
+  const diff = WEDDING_DATE.getTime() - Date.now();
 
   if (diff <= 0) {
-    document.getElementById("countdown").innerHTML =
-      '<p class="cd-today" style="font-style:italic">Today is the big day!</p>';
+    countdown.innerHTML =
+      '<p class="cd-today">Our special day has arrived!</p>';
+
     clearInterval(countdownTimer);
     return;
   }
 
-  const sec = Math.floor(diff / 1000);
-  cd.days.textContent = Math.floor(sec / 86400);
-  cd.hours.textContent = String(Math.floor((sec % 86400) / 3600)).padStart(2, "0");
-  cd.minutes.textContent = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
-  cd.seconds.textContent = String(sec % 60).padStart(2, "0");
+  const totalSeconds = Math.floor(diff / 1000);
+
+  if (cd.days) {
+    cd.days.textContent = Math.floor(totalSeconds / 86400);
+  }
+
+  if (cd.hours) {
+    cd.hours.textContent = String(
+      Math.floor((totalSeconds % 86400) / 3600)
+    ).padStart(2, "0");
+  }
+
+  if (cd.minutes) {
+    cd.minutes.textContent = String(
+      Math.floor((totalSeconds % 3600) / 60)
+    ).padStart(2, "0");
+  }
+
+  if (cd.seconds) {
+    cd.seconds.textContent = String(totalSeconds % 60).padStart(2, "0");
+  }
 }
 
-const countdownTimer = setInterval(updateCountdown, 1000);
 updateCountdown();
+const countdownTimer = setInterval(updateCountdown, 1000);
 
-/* ── Gentle reveal of sections on scroll ───────────────────────── */
+// ------------------------------------------
+// Reveal sections when scrolling
+// ------------------------------------------
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
+const revealElements = document.querySelectorAll(".reveal");
 
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
 
-/* ── Gallery: lightbox ────────────────────────────────────────── */
+  revealElements.forEach((element) => observer.observe(element));
+} else {
+  revealElements.forEach((element) => element.classList.add("visible"));
+}
+
+// ------------------------------------------
+// Gallery lightbox
+// ------------------------------------------
 
 const lightbox = document.getElementById("lightbox");
-const lightboxImg = lightbox.querySelector("img");
 
-document.querySelectorAll(".gallery-grid img").forEach((img) => {
-  img.addEventListener("click", () => {
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-    lightbox.showModal();
+if (lightbox) {
+  const lightboxImg = lightbox.querySelector("img");
+
+  document.querySelectorAll(".gallery-grid img").forEach((img) => {
+    img.addEventListener("click", () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.showModal();
+    });
   });
-});
 
-lightbox.addEventListener("click", () => lightbox.close());
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox || event.target === lightboxImg) {
+      lightbox.close();
+    }
+  });
+}
 
-/* ── RSVP ─────────────────────────────────────────────────────── */
+// ------------------------------------------
+// RSVP form
+// ------------------------------------------
 
-/* The site is static, so by default the form opens an email draft in
-   the guest's mail app. See the README ("Switching to Formspree") for
-   how to connect it to Formspree / Tally / Google Form instead, to
-   receive responses automatically without email.
-
-   Switching to Formspree? Delete the whole block below, from
-   "MAILTO BLOCK - START" to "MAILTO BLOCK - END", nothing else in this
-   file needs to change. */
-
-/* MAILTO BLOCK - START */
 const form = document.getElementById("rsvp-form");
 const note = document.getElementById("rsvp-note");
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+if (form && note) {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-  const data = new FormData(form);
-  const firstName = (data.get("first-name") || "").toString().trim();
-  const lastName = (data.get("last-name") || "").toString().trim();
+    const data = new FormData(form);
 
-  if (!firstName || !lastName) {
-    note.textContent = "Just missing your first and last name!";
+    const firstName = String(data.get("first-name") || "").trim();
+    const lastName = String(data.get("last-name") || "").trim();
+
+    if (!firstName || !lastName) {
+      note.textContent = "Please enter your first and last name.";
+      note.hidden = false;
+      return;
+    }
+
+    if (
+      !COUPLE_EMAIL ||
+      COUPLE_EMAIL === "pasindubalasooriya1998@gmail.com"
+    ) {
+      note.textContent =
+        "The RSVP form needs the couple's email address before it can be used.";
+      note.hidden = false;
+      return;
+    }
+
+    const attending = String(data.get("attending") || "Yes");
+    const guestCount = String(data.get("guests") || "0");
+    const guestNames = String(data.get("guest-names") || "").trim();
+    const message = String(data.get("message") || "").trim();
+
+    const lines = [
+      `Guest name: ${firstName} ${lastName}`,
+      `Attending: ${attending}`,
+      `Number of additional guests: ${guestCount}`,
+      `Additional guest names: ${guestNames || "Not provided"}`,
+      "",
+      "Message:",
+      message || "No message",
+    ];
+
+    const subject = `Wedding RSVP - ${firstName} ${lastName}`;
+
+    const mailto =
+      `mailto:${COUPLE_EMAIL}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(lines.join("\n"))}`;
+
+    note.textContent =
+      "Your email app should open with the RSVP details. Please send the email to complete your response.";
     note.hidden = false;
-    return;
-  }
 
-  const lines = [
-    `Name: ${firstName} ${lastName}`,
-    `Attending: ${data.get("attending")}`,
-    `Guests with me: ${data.get("guests") || 0}`,
-    `Guest names: ${data.get("guest-names") || ", "}`,
-    "",
-    `${data.get("message") || ""}`,
-  ];
-
-  const subject = `Wedding RSVP, ${firstName} ${lastName}`;
-  window.location.href =
-    `mailto:${COUPLE_EMAIL}` +
-    `?subject=${encodeURIComponent(subject)}` +
-    `&body=${encodeURIComponent(lines.join("\n"))}`;
-
-  note.textContent =
-    "Your email app is opening with the RSVP already written: just hit send. Thank you!";
-  note.hidden = false;
-});
-/* MAILTO BLOCK - END */
+    window.location.href = mailto;
+  });
+}
