@@ -1,21 +1,18 @@
 
 /* ==========================================
    SACHINTHA & PRATHIBHASHINI
-   Wedding website JavaScript
+   Wedding Website JavaScript
    ========================================== */
 
-// Wedding date: 20 January 2027, Sri Lanka time
-// Countdown targets the Poruwa ceremony at 10:10 AM.
+// Wedding date and Poruwa ceremony time — Sri Lanka
 const WEDDING_DATE = new Date("2027-01-20T10:10:00+05:30");
 
-// IMPORTANT:
-// Replace this with your real email address
-// before using the RSVP form.
+// Replace this with the email address that should receive RSVPs.
 const COUPLE_EMAIL = "YOUR_EMAIL_HERE";
 
-// ------------------------------------------
-// Countdown
-// ------------------------------------------
+// ==========================================
+// COUNTDOWN
+// ==========================================
 
 const countdown = document.getElementById("countdown");
 
@@ -26,6 +23,8 @@ const cd = {
   seconds: document.getElementById("cd-seconds"),
 };
 
+let countdownTimer;
+
 function updateCountdown() {
   if (!countdown) return;
 
@@ -35,7 +34,10 @@ function updateCountdown() {
     countdown.innerHTML =
       '<p class="cd-today">Our special day has arrived!</p>';
 
-    clearInterval(countdownTimer);
+    if (countdownTimer) {
+      clearInterval(countdownTimer);
+    }
+
     return;
   }
 
@@ -63,11 +65,12 @@ function updateCountdown() {
 }
 
 updateCountdown();
-const countdownTimer = setInterval(updateCountdown, 1000);
 
-// ------------------------------------------
-// Reveal sections when scrolling
-// ------------------------------------------
+countdownTimer = setInterval(updateCountdown, 1000);
+
+// ==========================================
+// SCROLL REVEAL
+// ==========================================
 
 const revealElements = document.querySelectorAll(".reveal");
 
@@ -86,12 +89,14 @@ if ("IntersectionObserver" in window) {
 
   revealElements.forEach((element) => observer.observe(element));
 } else {
-  revealElements.forEach((element) => element.classList.add("visible"));
+  revealElements.forEach((element) => {
+    element.classList.add("visible");
+  });
 }
 
-// ------------------------------------------
-// Gallery lightbox
-// ------------------------------------------
+// ==========================================
+// GALLERY LIGHTBOX
+// ==========================================
 
 const lightbox = document.getElementById("lightbox");
 
@@ -100,6 +105,8 @@ if (lightbox) {
 
   document.querySelectorAll(".gallery-grid img").forEach((img) => {
     img.addEventListener("click", () => {
+      if (!lightboxImg) return;
+
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
       lightbox.showModal();
@@ -113,9 +120,9 @@ if (lightbox) {
   });
 }
 
-// ------------------------------------------
-// RSVP form
-// ------------------------------------------
+// ==========================================
+// RSVP FORM
+// ==========================================
 
 const form = document.getElementById("rsvp-form");
 const note = document.getElementById("rsvp-note");
@@ -137,7 +144,8 @@ if (form && note) {
 
     if (
       !COUPLE_EMAIL ||
-      COUPLE_EMAIL === "pasindubalasooriya1998@gmail.com"
+      COUPLE_EMAIL === "YOUR_EMAIL_HERE" ||
+      !COUPLE_EMAIL.includes("@")
     ) {
       note.textContent =
         "The RSVP form needs the couple's email address before it can be used.";
@@ -175,81 +183,65 @@ if (form && note) {
   });
 }
 
+// ==========================================
+// ENVELOPE OPENING ANIMATION
+// ==========================================
 
+(function setupWeddingEnvelope() {
+  const screen = document.getElementById("envelope-screen");
+  const openButton = document.getElementById("open-invitation");
 
+  if (!screen || !openButton) return;
 
-/* ===== WEDDING ENVELOPE OPEN ANIMATION ===== */
-(function () {
-  function setupWeddingEnvelope() {
-    const screen = document.getElementById("envelope-screen");
-    const openButton = document.getElementById("open-invitation");
+  document.body.style.overflow = "hidden";
 
-    if (!screen || !openButton) {
-      console.error("Envelope screen or button was not found.");
-      return;
-    }
+  openButton.addEventListener("click", () => {
+    if (screen.classList.contains("is-opening")) return;
 
-    document.body.style.overflow = "hidden";
+    screen.classList.add("is-opening");
+    openButton.disabled = true;
+    openButton.textContent = "With love ♥";
 
-    openButton.addEventListener("click", function () {
-      if (screen.classList.contains("is-opening")) return;
+    // Fade away the intro after the envelope animation.
+    setTimeout(() => {
+      screen.classList.add("is-open");
+      document.body.style.overflow = "";
+    }, 1400);
 
-      screen.classList.add("is-opening");
-      openButton.disabled = true;
-      openButton.textContent = "With love ♥";
+    setTimeout(() => {
+      screen.remove();
+      document.body.style.overflow = "";
+    }, 2400);
+  });
+})();
 
-      setTimeout(function () {
-        screen.classList.add("is-open");
-        document.body.style.overflow = "";
-      }, 1100);
+// ==========================================
+// FALLING HEARTS ANIMATION
+// ==========================================
 
-      setTimeout(function () {
-        screen.remove();
-      }, 2100);
-    });
-  }
+(function createHeartRain() {
+  const container = document.querySelector(".heart-rain");
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupWeddingEnvelope);
-  } else {
-    setupWeddingEnvelope();
+  if (!container || container.dataset.ready === "true") return;
+
+  container.dataset.ready = "true";
+
+  const hearts = ["♥", "❤", "♡"];
+  const heartCount = 30;
+
+  for (let i = 0; i < heartCount; i++) {
+    const heart = document.createElement("span");
+
+    heart.textContent =
+      hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.setAttribute("aria-hidden", "true");
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = (12 + Math.random() * 17) + "px";
+    heart.style.opacity = (0.35 + Math.random() * 0.5).toFixed(2);
+    heart.style.animationDuration = (7 + Math.random() * 9) + "s";
+    heart.style.animationDelay = (-Math.random() * 15) + "s";
+
+    container.appendChild(heart);
   }
 })();
-/* ===== END WEDDING ENVELOPE ANIMATION ===== */
-
-
-/* ===== FALLING HEARTS ANIMATION ===== */
-(function () {
-  function createHeartRain() {
-    const container = document.querySelector(".heart-rain");
-
-    if (!container || container.dataset.ready === "true") return;
-
-    container.dataset.ready = "true";
-
-    const hearts = ["♥", "❤", "💕", "♡"];
-    const heartCount = 30;
-
-    for (let i = 0; i < heartCount; i++) {
-      const heart = document.createElement("span");
-
-      heart.textContent =
-        hearts[Math.floor(Math.random() * hearts.length)];
-
-      heart.style.left = Math.random() * 100 + "%";
-      heart.style.fontSize = (12 + Math.random() * 17) + "px";
-      heart.style.opacity = (0.35 + Math.random() * 0.5).toFixed(2);
-      heart.style.animationDuration = (7 + Math.random() * 9) + "s";
-      heart.style.animationDelay = (-Math.random() * 15) + "s";
-
-      container.appendChild(heart);
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", createHeartRain);
-  } else {
-    createHeartRain();
-  }
-})();
-/* ===== END FALLING HEARTS ===== */
