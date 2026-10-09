@@ -1,12 +1,15 @@
 
-/* PINK WEDDING THEME OVERRIDES */
+/* =========================================================
+   SACHINTHA & PRATHIBHASHINI
+   Elegant Pink Wedding Theme + Full Floral Envelope Frame
+   ========================================================= */
 
 :root {
   --paper: #fff8fa;
   --ink: #68434f;
   --ink-soft: #987783;
   --line: rgba(183, 93, 124, 0.3);
-  --dark: #c46f8d;
+  --dark: #b75d7c;
   --rose-light: #fff0f4;
   --rose-pale: #fce4eb;
   --rose: #e9b2c3;
@@ -20,7 +23,9 @@ body {
 }
 
 .hero {
-  background: radial-gradient(ellipse at top, #fff0f4, transparent 65%), var(--paper);
+  background:
+    radial-gradient(ellipse at top, #fff0f4, transparent 65%),
+    var(--paper);
 }
 
 .hero-names h1,
@@ -105,9 +110,10 @@ a {
   color: white;
 }
 
+/* =========================================================
+   ENVELOPE INTRO SCREEN
+   ========================================================= */
 
-
-/* ===== PINK WEDDING ENVELOPE INTRO ===== */
 .envelope-screen {
   position: fixed;
   inset: 0;
@@ -115,9 +121,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 30px 22px;
   overflow: hidden;
-  background: linear-gradient(145deg, #fff8fa, #fce4eb);
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at center, #fffdfd 0%, transparent 66%),
+    linear-gradient(145deg, #fff8fa, #fce4eb);
   text-align: center;
   transition: opacity 0.9s ease, visibility 0.9s ease;
 }
@@ -129,21 +138,25 @@ a {
 }
 
 .envelope-content {
+  position: relative;
+  z-index: 3;
   width: 100%;
   max-width: 420px;
   color: #68434f;
 }
 
 .envelope-small {
-  margin-bottom: 28px;
-  color: #b75d7c;
+  margin: 0 0 28px;
+  color: #a64f70;
+  font-family: "Karla", sans-serif;
   font-size: 11px;
   letter-spacing: 3px;
 }
 
 .envelope {
   position: relative;
-  width: min(300px, 80vw);
+  z-index: 2;
+  width: min(300px, 76vw);
   height: 190px;
   margin: 0 auto 34px;
   perspective: 900px;
@@ -153,77 +166,105 @@ a {
 .envelope-back {
   position: absolute;
   inset: 0;
+  z-index: 1;
   border-radius: 5px;
-  background: #e9b2c3;
+  background: linear-gradient(145deg, #f3c7d5, #e9b2c3);
 }
+
+/* Invitation card */
 
 .envelope-letter {
   position: absolute;
-  z-index: 2;
   top: 12px;
   left: 8%;
+  z-index: 2;
   width: 84%;
   height: 165px;
   box-sizing: border-box;
-  padding: 18px 8px;
-  background: #fffdfd;
-  color: #68434f;
-  transition: transform 1s ease 0.35s;
+  overflow: hidden;
+  padding: 13px 8px;
+  border: 1px solid #d8b36b;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #ffffff, #fff5f8);
+  box-shadow:
+    0 8px 22px rgba(116, 52, 76, 0.18),
+    inset 0 0 0 4px #fff,
+    inset 0 0 0 5px #f0dce3;
+  color: #805064;
+  text-align: center;
+  transition:
+    transform 1s ease 0.25s,
+    box-shadow 0.5s ease;
 }
 
 .envelope-letter p {
-  margin: 4px 0;
-  font-family: Georgia, serif;
-  font-size: 23px;
-}
-
-.envelope-letter small {
-  display: block;
-  margin-top: 8px;
-  color: #b75d7c;
-  font-size: 11px;
-  letter-spacing: 1px;
+  margin: 3px 0;
+  color: #a64f70;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 5vw, 23px);
+  font-style: italic;
+  line-height: 1.1;
+  letter-spacing: 0.3px;
 }
 
 .letter-heart {
   display: block;
-  margin-bottom: 5px;
-  color: #b75d7c;
-  font-size: 17px;
-}
-
-.letter-amp {
-  color: #c6a15b;
-  font-family: Georgia, serif;
+  margin-bottom: 3px;
+  color: #c45d80;
   font-size: 16px;
 }
 
+.letter-amp {
+  display: block;
+  margin: 1px 0;
+  color: #c3a05e;
+  font-family: Georgia, serif;
+  font-size: 17px;
+}
+
+.envelope-letter small {
+  display: block;
+  margin-top: 5px;
+  color: #987783;
+  font-family: Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+/* Envelope front */
+
 .envelope-front {
   position: absolute;
-  z-index: 3;
   inset: 0;
-  background: #e9b2c3;
+  z-index: 3;
+  background: linear-gradient(145deg, #edbdcc, #df91aa);
   clip-path: polygon(0 0, 50% 62%, 100% 0, 100% 100%, 0 100%);
 }
 
+/* Envelope opening flap */
+
 .envelope-flap {
   position: absolute;
-  z-index: 4;
   top: 0;
   left: 0;
+  z-index: 4;
   width: 100%;
   height: 100%;
-  background: #d88da7;
+  background: linear-gradient(145deg, #d88da7, #c46f8d);
   clip-path: polygon(0 0, 100% 0, 50% 60%);
   transform-origin: top center;
   transition: transform 0.7s ease;
+  backface-visibility: visible;
 }
+
+/* Wax seal */
 
 .envelope-seal {
   position: absolute;
-  z-index: 5;
   top: 75px;
   left: 50%;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,30 +289,37 @@ a {
 .envelope-title {
   margin: 0 0 10px;
   color: #9d4e6a;
-  font-family: Georgia, serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(27px, 6vw, 36px);
   font-weight: normal;
+  line-height: 1.2;
 }
 
 .envelope-subtitle {
+  max-width: 330px;
   margin: 0 auto 24px;
   color: #987783;
+  font-family: "Karla", sans-serif;
   font-size: 14px;
   line-height: 1.7;
 }
 
 .envelope-button {
+  position: relative;
+  z-index: 4;
   padding: 14px 28px;
   border: 1px solid #b75d7c;
   border-radius: 30px;
   background: #b75d7c;
   color: white;
-  font: inherit;
+  font-family: "Karla", sans-serif;
   font-size: 13px;
   letter-spacing: 0.5px;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(183, 93, 124, 0.2);
-  transition: background 0.25s ease, transform 0.25s ease;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
 .envelope-button:hover {
@@ -279,52 +327,53 @@ a {
   transform: translateY(-2px);
 }
 
+.envelope-button:disabled {
+  opacity: 0.8;
+  cursor: default;
+}
+
+/* Envelope opening animation */
+
 .envelope-screen.is-opening .envelope-flap {
   transform: rotateX(180deg);
 }
 
 .envelope-screen.is-opening .envelope-letter {
-  transform: translateY(-100px);
+  z-index: 6;
+  transform: translateY(-125px);
+  box-shadow: 0 16px 28px rgba(116, 52, 76, 0.22);
 }
 
 .envelope-screen.is-opening .envelope-seal {
   opacity: 0;
 }
 
-@media (max-height: 650px) {
-  .envelope {
-    transform: scale(0.82);
-    margin-top: -10px;
-    margin-bottom: 5px;
-  }
+/* =========================================================
+   FULL FLORAL FRAME — ROSES AND GREEN LEAVES
+   Original vector illustrations; no emoji flowers needed.
+   ========================================================= */
 
-  .envelope-small {
-    margin-bottom: 10px;
-  }
-
-  .envelope-subtitle {
-    margin-bottom: 14px;
-  }
-}
-/* ===== END WEDDING ENVELOPE INTRO ===== */
-
-
-/* ===== ROMANTIC HEART RAIN & RED ROSES ===== */
-
-.envelope-screen {
-  isolation: isolate;
-}
-
-.envelope-content {
-  position: relative;
+.envelope-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   z-index: 2;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.96;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='900' viewBox='0 0 600 900'%3E%3Cdefs%3E%3Cg id='leaf'%3E%3Cellipse rx='10' ry='25' fill='%234f8759' stroke='%233c7049' stroke-width='1.5'/%3E%3Cpath d='M0 20 L0 -20' fill='none' stroke='%23b2c98e' stroke-width='1.5'/%3E%3C/g%3E%3Cg id='rose'%3E%3Ccircle r='25' fill='%23a92343'/%3E%3Cellipse cx='-9' cy='-7' rx='12' ry='15' fill='%23d94360' transform='rotate(-28 -9 -7)'/%3E%3Cellipse cx='9' cy='-7' rx='12' ry='15' fill='%23ef667b' transform='rotate(28 9 -7)'/%3E%3Cellipse cx='-10' cy='8' rx='12' ry='14' fill='%23c72c4f' transform='rotate(30 -10 8)'/%3E%3Cellipse cx='10' cy='8' rx='12' ry='14' fill='%23d93659' transform='rotate(-30 10 8)'/%3E%3Ccircle r='10' fill='%238f1838'/%3E%3Cpath d='M-5 -2 Q2 -10 7 -1 Q9 5 0 7 Q-7 4 -5 -2Z' fill='%23f78a91'/%3E%3C/g%3E%3C/g%3E%3C/defs%3E%3Cg stroke-linecap='round'%3E%3Cpath d='M0 150 Q45 120 25 65 Q50 95 70 50 Q65 120 110 145 M0 360 Q55 335 35 280 Q65 305 85 255 Q90 325 120 350 M0 610 Q50 585 35 530 Q65 555 90 505 Q85 580 125 605 M0 830 Q55 800 30 750 Q65 780 85 725 Q90 795 125 820' fill='none' stroke='%234f8759' stroke-width='5'/%3E%3Cuse href='%23leaf' transform='translate(32 105) rotate(-48)'/%3E%3Cuse href='%23leaf' transform='translate(60 80) rotate(35)'/%3E%3Cuse href='%23leaf' transform='translate(80 130) rotate(60)'/%3E%3Cuse href='%23leaf' transform='translate(35 310) rotate(-55)'/%3E%3Cuse href='%23leaf' transform='translate(75 285) rotate(45)'/%3E%3Cuse href='%23leaf' transform='translate(85 335) rotate(65)'/%3E%3Cuse href='%23leaf' transform='translate(35 560) rotate(-50)'/%3E%3Cuse href='%23leaf' transform='translate(75 535) rotate(45)'/%3E%3Cuse href='%23leaf' transform='translate(95 580) rotate(60)'/%3E%3Cuse href='%23leaf' transform='translate(40 780) rotate(-55)'/%3E%3Cuse href='%23leaf' transform='translate(75 755) rotate(45)'/%3E%3Cuse href='%23leaf' transform='translate(95 805) rotate(65)'/%3E%3Cuse href='%23rose' transform='translate(36 45) scale(1.1)'/%3E%3Cuse href='%23rose' transform='translate(76 175) scale(.72)'/%3E%3Cuse href='%23rose' transform='translate(37 265) scale(.88)'/%3E%3Cuse href='%23rose' transform='translate(70 390) scale(.75)'/%3E%3Cuse href='%23rose' transform='translate(35 485) scale(1.05)'/%3E%3Cuse href='%23rose' transform='translate(78 650) scale(.78)'/%3E%3Cuse href='%23rose' transform='translate(35 710) scale(.85)'/%3E%3Cuse href='%23rose' transform='translate(50 870) scale(1.05)'/%3E%3Cpath d='M600 150 Q555 120 575 65 Q550 95 530 50 Q535 120 490 145 M600 360 Q545 335 565 280 Q535 305 515 255 Q510 325 480 350 M600 610 Q550 585 565 530 Q535 555 510 505 Q515 580 475 605 M600 830 Q545 800 570 750 Q535 780 515 725 Q510 795 475 820' fill='none' stroke='%234f8759' stroke-width='5'/%3E%3Cuse href='%23leaf' transform='translate(568 105) rotate(48)'/%3E%3Cuse href='%23leaf' transform='translate(540 80) rotate(-35)'/%3E%3Cuse href='%23leaf' transform='translate(520 130) rotate(-60)'/%3E%3Cuse href='%23leaf' transform='translate(565 310) rotate(55)'/%3E%3Cuse href='%23leaf' transform='translate(525 285) rotate(-45)'/%3E%3Cuse href='%23leaf' transform='translate(515 335) rotate(-65)'/%3E%3Cuse href='%23leaf' transform='translate(565 560) rotate(50)'/%3E%3Cuse href='%23leaf' transform='translate(525 535) rotate(-45)'/%3E%3Cuse href='%23leaf' transform='translate(505 580) rotate(-60)'/%3E%3Cuse href='%23leaf' transform='translate(560 780) rotate(55)'/%3E%3Cuse href='%23leaf' transform='translate(525 755) rotate(-45)'/%3E%3Cuse href='%23leaf' transform='translate(505 805) rotate(-65)'/%3E%3Cuse href='%23rose' transform='translate(564 45) scale(1.1)'/%3E%3Cuse href='%23rose' transform='translate(524 175) scale(.72)'/%3E%3Cuse href='%23rose' transform='translate(563 265) scale(.88)'/%3E%3Cuse href='%23rose' transform='translate(530 390) scale(.75)'/%3E%3Cuse href='%23rose' transform='translate(565 485) scale(1.05)'/%3E%3Cuse href='%23rose' transform='translate(522 650) scale(.78)'/%3E%3Cuse href='%23rose' transform='translate(565 710) scale(.85)'/%3E%3Cuse href='%23rose' transform='translate(550 870) scale(1.05)'/%3E%3Cpath d='M0 0 Q70 12 120 60 M600 0 Q530 12 480 60 M0 900 Q70 888 120 840 M600 900 Q530 888 480 840' fill='none' stroke='%234f8759' stroke-width='5'/%3E%3Cuse href='%23rose' transform='translate(18 18) scale(.8)'/%3E%3Cuse href='%23rose' transform='translate(582 18) scale(.8)'/%3E%3Cuse href='%23rose' transform='translate(18 882) scale(.8)'/%3E%3Cuse href='%23rose' transform='translate(582 882) scale(.8)'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Falling hearts layer */
+/* Falling hearts stay in front of the floral background,
+   but behind the envelope and invitation text. */
+
 .heart-rain {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   overflow: hidden;
   pointer-events: none;
 }
@@ -333,7 +382,7 @@ a {
   position: absolute;
   top: -50px;
   display: block;
-  color: #e63959;
+  color: #d93659;
   line-height: 1;
   text-shadow: 0 3px 10px rgba(183, 40, 72, 0.15);
   animation: romantic-heart-fall linear infinite;
@@ -354,30 +403,69 @@ a {
   }
 }
 
-/* Red roses along the bottom */
-.envelope-screen::after {
-  content: "🌹  🌹  🌹  🌹  🌹  🌹  🌹  🌹  🌹";
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 2px 2px;
-  text-align: center;
-  white-space: nowrap;
-  font-size: clamp(20px, 4.5vw, 38px);
-  line-height: 1.4;
-  pointer-events: none;
-  filter: drop-shadow(0 -3px 8px rgba(160, 30, 60, 0.12));
+/* Responsive layout */
+
+@media (max-width: 480px) {
+  .envelope-screen {
+    padding: 22px 14px;
+  }
+
+  .envelope {
+    width: min(280px, 72vw);
+    height: 178px;
+    margin-bottom: 27px;
+  }
+
+  .envelope-letter {
+    height: 155px;
+    padding-top: 10px;
+  }
+
+  .envelope-screen.is-opening .envelope-letter {
+    transform: translateY(-112px);
+  }
+
+  .envelope-screen::before {
+    opacity: 0.78;
+  }
+
+  .envelope-small {
+    margin-bottom: 22px;
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .envelope-title {
+    font-size: 29px;
+  }
+
+  .envelope-subtitle {
+    max-width: 270px;
+    font-size: 13px;
+  }
 }
 
-/* Keep the invitation above the falling hearts */
-.envelope-content {
-  z-index: 2;
+@media (max-height: 650px) {
+  .envelope-content {
+    transform: scale(0.84);
+  }
+
+  .envelope-small {
+    margin-bottom: 10px;
+  }
+
+  .envelope {
+    margin-top: -8px;
+    margin-bottom: 5px;
+  }
+
+  .envelope-subtitle {
+    margin-bottom: 14px;
+  }
 }
 
-/* Respect reduced-motion accessibility settings */
+/* Accessibility */
+
 @media (prefers-reduced-motion: reduce) {
   .heart-rain span {
     animation: none;
@@ -390,96 +478,3 @@ a {
     transition-duration: 0.01ms;
   }
 }
-
-/* ===== END HEART RAIN & ROSES ===== */
-
-
-```css
-/* Elegant invitation card — bring it above the envelope flap */
-.envelope-letter {
-  z-index: 6 !important;
-  height: 165px;
-  box-sizing: border-box;
-  padding: 17px 8px;
-  overflow: hidden;
-
-  background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
-  border: 1px solid #d8b36b;
-  border-radius: 5px;
-  box-shadow:
-    0 8px 22px rgba(116, 52, 76, 0.18),
-    inset 0 0 0 4px #fff,
-    inset 0 0 0 5px #f0dce3;
-
-  color: #805064;
-  text-align: center;
-  transition: transform 1s ease 0.35s;
-}
-
-/* Names */
-.envelope-letter p {
-  margin: 4px 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(18px, 5vw, 23px);
-  font-style: italic;
-  line-height: 1.15;
-  color: #a64f70;
-  letter-spacing: 0.3px;
-}
-
-/* Heart above the names */
-.envelope-letter .letter-heart {
-  display: block;
-  margin-bottom: 5px;
-  color: #c45d80;
-  font-size: 17px;
-}
-
-/* Gold ampersand */
-.envelope-letter .letter-amp {
-  display: block;
-  margin: 2px 0;
-  color: #c3a05e;
-  font-size: 18px;
-}
-
-/* Wedding date */
-.envelope-letter small {
-  display: block;
-  margin-top: 8px;
-  color: #987783;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-/* Flap stays behind the rising card */
-.envelope-screen.is-opening .envelope-flap {
-  z-index: 4;
-  transform: rotateX(180deg);
-}
-
-/* Raise the card above the envelope */
-.envelope-screen.is-opening .envelope-letter {
-  z-index: 6 !important;
-  transform: translateY(-125px);
-}
-
-/* Envelope front and seal stay below the card while opening */
-.envelope-screen.is-opening .envelope-front {
-  z-index: 3;
-}
-
-.envelope-screen.is-opening .envelope-seal {
-  z-index: 5;
-  opacity: 0;
-}
-
-/* Smooth, neat look on small phones */
-@media (max-width: 380px) {
-  .envelope-letter p {
-    font-size: 19px;
-  }
-}
-```
